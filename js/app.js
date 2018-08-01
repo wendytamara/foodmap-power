@@ -41,7 +41,6 @@
 
    service.nearbySearch(request, function(results, status) {
      if (status === google.maps.places.PlacesServiceStatus.OK) {
-        console.log(results);
 
        for (var i = 0; i < results.length; i++) {
         
@@ -61,11 +60,9 @@
         
          containerElements.classList.add("card-deck")
          
-
          h5.classList.add("card-title");
          div.classList.add("card");
-
-         div.className += " col-md-3";
+         div.className += " col-sm-6 col-md-3 ";
          img.classList.add("card-img-top");
          src.value = "comidaMexican.jpg";
          dataToggle.value = "modal";
@@ -94,9 +91,7 @@
         div.appendChild(img);
         div.appendChild(div2);
         div2.appendChild(h5);
-
-
-        
+       
        div.addEventListener("click", function() {
         
          var restaurante = this.dataset.name;
@@ -122,13 +117,9 @@
 
        var input = document.getElementById("input");
 
-
-
         input.addEventListener("keyup", function() {
-          debugger
-
           var textoIngresado = this.value;
-          console.log(textoIngresado);
+
           $('.card').hide();
           $('.card').each(function(){
             
