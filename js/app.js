@@ -98,7 +98,7 @@
 
         
        div.addEventListener("click", function() {
-         console.log(this);
+        
          var restaurante = this.dataset.name;
          var direccion = this.dataset.direccion;
          var open = this.dataset.open;
@@ -120,6 +120,25 @@
 
        })
 
+       var input = document.getElementById("input");
+
+
+
+        input.addEventListener("keyup", function() {
+          debugger
+
+          var textoIngresado = this.value;
+          console.log(textoIngresado);
+          $('.card').hide();
+          $('.card').each(function(){
+            
+            var search = $(this).text().toLowerCase();
+            if (search.indexOf(textoIngresado) !== -1) {
+              $(this).show();
+            }
+          });
+
+        })
 
         createMarker(results[i]);
            
@@ -128,21 +147,6 @@
    });  
  });
 }
-
-
-var input = document.getElementById("input");
-
-input.addEventListener("keyup", function() {
-  // console.log(this)
-
-  var textoIngresado = this.value;
-  console.log(textoIngresado);
-  card.style.display = "none";
-
-
-})
-
-
 
 
 var iconBase = 'http://bennystaqueria.com/wp-content/uploads/2016/12/map-marker.png';
