@@ -8,30 +8,25 @@
 <title>Reto Foodmap</title>
 </head>
 <body>
-  <!-- <img src="assets/images/comidaMexican.jpg" alt=""> -->
-
-  <button type="button" class="btn btn-primary" >Large modal</button>
-
-  <button data-toggle="modal" data-target=".bd-example-modal-lg">HOLA</button>
+  <div data-name = "rosaura"></div>
 
   <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg"> 
-      <div class="modal-content">
+      <div class="modal-content modalB">
         <div class="container-header">
-          <h1>LA CASA DEL MIRADOR</h1>
+          <h1 class="title" id="nombreRest"></h1>
         </div>
         <div class="container-body row">
-          <div class="col-sm-6">
-            <p>direccion:</p> <p class="direction"></p>
-            <p>Especialidad:</p> <p class="especialidad"></p>
-            <p>Precio:</p><p class="price"></p>
-            <p>Valoraciones:</p> <p class="rating"></p>
-            <p>Abierto Ahora?</p> <p class="openNow"></p>
+          <div class="col-sm-8">
+            <p> <strong> direccion:</strong> <span id="addres"></span></p> 
+            <p><strong>Especialidad:</strong> <span id="especiality"></span> </p> 
+            <p><strong>Precio:</strong> <span id="price"></span> </p>
+            <p><strong>Valoraciones:</strong> <span id="ranking"></span> </p>
+            <p> <strong>Abierto Ahora?</strong> <span id="openNow"></span> </p> 
           </div>
-          <div class="col-sm-6">
-            <p>Realizamos envios al domicilio, llega en 30 minutos :)</p>
+          <div class="col-sm-4 containerButton">
             <button>Añadir a la Lista</button>
-            <button>PAGAR CON PAYPAL</button>
+            <button class="pay">PAGAR CON PAYPAL</button>
           </div>
         </div>       
       </div>
@@ -39,10 +34,9 @@
   </div>
 
 
-
  <div id="mapa" style="width: 100%; height: 400px;"> </div>
 
- <input type="text" placeholder="ingrese el establecimiento a buscar" class="campText">
+ <input id="input" type="text" placeholder="ingrese el establecimiento a buscar" class="campText">
 
  <div class="container-fluid">
     <div id="containerElements">
@@ -56,6 +50,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
  <script src="js/app.js"></script>
+ <script src="js/practica.js"></script>
 </body>
 </html>
 
