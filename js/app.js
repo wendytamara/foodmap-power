@@ -1,3 +1,15 @@
+ 
+  function splash() {
+    $('.contenBox').hide();
+
+    setTimeout(function() {
+     $('.splash').hide();
+     $('.contenBox').show();
+    }, 2000);
+  }
+ 
+$(document).ready(splash);
+ 
  var map;
  var infowindow;
  var containerElements;
@@ -6,6 +18,8 @@
  var containerOptions;
 
  function initMap() {
+
+
  // Creamos un mapa con las coordenadas actuales
    navigator.geolocation.getCurrentPosition(function(pos) {
    lat = pos.coords.latitude;
@@ -28,8 +42,6 @@
    infowindow = new google.maps.InfoWindow();
 
    // Especificamos la localización, el radio y el tipo de lugares que queremos obtener
-  //  var valueInput = containerOptions.value;
-  //  console.log(valueInput);
 
    var request = {
      location: myLatlng,
@@ -44,8 +56,6 @@
    function typeEstablishment() {
      $('.contenedorDeRestaurantes').empty();
      var valueInput = containerOptions.value;
-     console.log(valueInput)
-
      var request = {
         location: myLatlng,
         radius: 400,
@@ -57,13 +67,11 @@
     createResults(results, status);    
    }
 
-
    // Creamos el servicio PlaceService y enviamos la petición.
    var service = new google.maps.places.PlacesService(map);
    service.nearbySearch(request, createResults)
    function createResults(results, status) {
      if (status === google.maps.places.PlacesServiceStatus.OK) {
-       console.log(results)
 
        for (var i = 0; i < results.length; i++) {      
          var h5 = document.createElement("h5");

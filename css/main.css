@@ -52,3 +52,13 @@ body {
   flex-direction: row;
   justify-content: center;
 }
+
+.splash {
+  height: 100vh;
+  font-size: 4em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: #e88a33;
+}
