@@ -3,11 +3,11 @@
  var containerElements;
  var boxRest;
  var card;
+ var containerOptions;
 
  function initMap() {
  // Creamos un mapa con las coordenadas actuales
    navigator.geolocation.getCurrentPosition(function(pos) {
-
    lat = pos.coords.latitude;
    lon = pos.coords.longitude;
 
@@ -18,33 +18,54 @@
      zoom: 16,
      mapTypeId: google.maps.MapTypeId.SATELLITE
    };
-
-   
+ 
    map = new google.maps.Map(document.getElementById("mapa"),  mapOptions);
    containerElements = document.getElementById("containerElements");
+   containerOptions = document.getElementById("containerOptions");
+
 
    // Creamos el infowindow
    infowindow = new google.maps.InfoWindow();
 
    // Especificamos la localización, el radio y el tipo de lugares que queremos obtener
+  //  var valueInput = containerOptions.value;
+  //  console.log(valueInput);
+
    var request = {
      location: myLatlng,
-     radius: 400,
+     radius: 500,
      types: ['restaurant']
    };
+
+   containerOptions = document.getElementById("containerOptions");
+   containerOptions.addEventListener("change", typeEstablishment);
+   var valueInput = containerOptions.value;
+    
+   function typeEstablishment() {
+     $('.contenedorDeRestaurantes').empty();
+     var valueInput = containerOptions.value;
+     console.log(valueInput)
+
+     var request = {
+        location: myLatlng,
+        radius: 400,
+        types: [valueInput]
+      };
+
+    var service = new google.maps.places.PlacesService(map);
+    service.nearbySearch(request, createResults)
+    createResults(results, status);    
+   }
 
 
    // Creamos el servicio PlaceService y enviamos la petición.
    var service = new google.maps.places.PlacesService(map);
- 
-
-
-   service.nearbySearch(request, function(results, status) {
+   service.nearbySearch(request, createResults)
+   function createResults(results, status) {
      if (status === google.maps.places.PlacesServiceStatus.OK) {
+       console.log(results)
 
-       for (var i = 0; i < results.length; i++) {
-        
-        
+       for (var i = 0; i < results.length; i++) {      
          var h5 = document.createElement("h5");
          var div = document.createElement("div");
          var img = document.createElement("img");
@@ -56,6 +77,7 @@
          var dataDirection = document.createAttribute("data-direccion");
          var openNow = document.createAttribute("data-open");
          var rating =  document.createAttribute("data-rating");
+         var photoIcon = document.createAttribute("data-icon"); 
          var id = document.createAttribute("id");
         
          containerElements.classList.add("card-deck")
@@ -68,11 +90,12 @@
          dataToggle.value = "modal";
          dataTarget.value = ".bd-example-modal-lg";
          dataName.value = results[i].name;
+
          dataDirection.value = results[i].vicinity;
          openNow.value = results[i].opening_hours.open_now;
          rating.value = results[i].rating;
+         photoIcon.value = results[i].icon;
          id.value = "box-rest";
-
 
          div.setAttributeNode(dataToggle);
          div.setAttributeNode(dataTarget);
@@ -81,6 +104,8 @@
          div.setAttributeNode(openNow);
          div.setAttributeNode(rating);
          div.setAttributeNode(id);
+         div.setAttributeNode(photoIcon);
+
          div2.classList.add("card-body");
 
         img.setAttributeNode(src);
@@ -108,34 +133,30 @@
 
          etiquetH1.textContent = restaurante;
          addres.textContent = direccion;
-         especiality.textContent = "Tacos Mexicanos";
-         price.textContent = " S/. 50";
+        //  especiality.textContent = "Tacos Mexicanos";
+        //  price.textContent = " S/. 50";
          ranking.textContent = rating;
          openNow.textContent = open;
-
        })
 
        var input = document.getElementById("input");
-
         input.addEventListener("keyup", function() {
           var textoIngresado = this.value;
-
           $('.card').hide();
-          $('.card').each(function(){
-            
+          $('.card').each(function(){           
             var search = $(this).text().toLowerCase();
             if (search.indexOf(textoIngresado) !== -1) {
               $(this).show();
             }
           });
-
         })
 
         createMarker(results[i]);
            
        } 
      }    
-   });  
+   }; 
+
  });
 }
 
