@@ -1,33 +1,29 @@
- 
-  function splash() {
-    $('.contenBox').hide();
-
-    setTimeout(function() {
-     $('.splash').hide();
-     $('.contenBox').show();
-    }, 2000);
-  }
+const splash = () => {
+  $('.contenBox').hide();
+  // var lala = document.getElementsByClassName('contenBox');
+  setTimeout (function() {
+    $('.splash').hide();
+    $('.contenBox').show();
+  }, 2000);
+}
  
 $(document).ready(splash);
- 
- var map;
- var infowindow;
- var containerElements;
- var boxRest;
- var card;
- var containerOptions;
 
- function initMap() {
+ let map;
+ let infowindow;
+ let containerElements;
+ let boxRest;
+ let card;
+ let containerOptions;
+ let valueInput;
 
-
+const initMap = () => {
  // Creamos un mapa con las coordenadas actuales
-   navigator.geolocation.getCurrentPosition(function(pos) {
-   lat = pos.coords.latitude;
-   lon = pos.coords.longitude;
-
-   var myLatlng = new google.maps.LatLng(lat, lon);
-
-   var mapOptions = {
+  navigator.geolocation.getCurrentPosition(function(pos) {
+    lat = pos.coords.latitude;
+    lon = pos.coords.longitude;
+   let myLatlng = new google.maps.LatLng(lat, lon);
+   let mapOptions = {
      center: myLatlng,
      zoom: 16,
      mapTypeId: google.maps.MapTypeId.SATELLITE
@@ -36,60 +32,51 @@ $(document).ready(splash);
    map = new google.maps.Map(document.getElementById("mapa"),  mapOptions);
    containerElements = document.getElementById("containerElements");
    containerOptions = document.getElementById("containerOptions");
-
+   containerOptions.addEventListener("change", typeEstablishment);
 
    // Creamos el infowindow
    infowindow = new google.maps.InfoWindow();
 
    // Especificamos la localización, el radio y el tipo de lugares que queremos obtener
-
-   var request = {
+   let request = {
      location: myLatlng,
-     radius: 500,
+     radius: 700,
      types: ['restaurant']
    };
-
-   containerOptions = document.getElementById("containerOptions");
-   containerOptions.addEventListener("change", typeEstablishment);
-   var valueInput = containerOptions.value;
-    
-   function typeEstablishment() {
-     $('.contenedorDeRestaurantes').empty();
-     var valueInput = containerOptions.value;
-     var request = {
-        location: myLatlng,
-        radius: 400,
-        types: [valueInput]
-      };
-
-    var service = new google.maps.places.PlacesService(map);
+ 
+  function typeEstablishment() {
+    $('.contenedorDeRestaurantes').empty();
+    valueInput = containerOptions.value;
+    let request = {
+      location: myLatlng,
+      radius: 400,
+      types: [valueInput]
+    };
+    let service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, createResults)
     createResults(results, status);    
-   }
+  }
 
    // Creamos el servicio PlaceService y enviamos la petición.
-   var service = new google.maps.places.PlacesService(map);
-   service.nearbySearch(request, createResults)
-   function createResults(results, status) {
-     if (status === google.maps.places.PlacesServiceStatus.OK) {
-
-       for (var i = 0; i < results.length; i++) {      
-         var h5 = document.createElement("h5");
-         var div = document.createElement("div");
-         var img = document.createElement("img");
-         var src = document.createAttribute("src");
-         var div2 = document.createElement("div");
-         var dataToggle = document.createAttribute("data-toggle");
-         var dataTarget = document.createAttribute("data-target");
-         var dataName = document.createAttribute("data-name");
-         var dataDirection = document.createAttribute("data-direccion");
-         var openNow = document.createAttribute("data-open");
-         var rating =  document.createAttribute("data-rating");
-         var photoIcon = document.createAttribute("data-icon"); 
-         var id = document.createAttribute("id");
-        
-         containerElements.classList.add("card-deck")
-         
+  let service = new google.maps.places.PlacesService(map);
+  service.nearbySearch(request, createResults)
+  function createResults(results, status) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+      results.forEach(element => {          
+        let h5 = document.createElement("h5");
+        let div = document.createElement("div");
+        let img = document.createElement("img");
+        let src = document.createAttribute("src");
+        let div2 = document.createElement("div");
+        let dataToggle = document.createAttribute("data-toggle");
+        let dataTarget = document.createAttribute("data-target");
+        let dataName = document.createAttribute("data-name");
+        let dataDirection = document.createAttribute("data-direccion");
+        let openNow = document.createAttribute("data-open");
+        let rating =  document.createAttribute("data-rating");
+        let photoIcon = document.createAttribute("data-icon"); 
+        let id = document.createAttribute("id");    
+         containerElements.classList.add("card-deck")         
          h5.classList.add("card-title");
          div.classList.add("card");
          div.className += " col-sm-6 col-md-3 ";
@@ -97,14 +84,12 @@ $(document).ready(splash);
          src.value = "comidaMexican.jpg";
          dataToggle.value = "modal";
          dataTarget.value = ".bd-example-modal-lg";
-         dataName.value = results[i].name;
-
-         dataDirection.value = results[i].vicinity;
-         openNow.value = results[i].opening_hours.open_now;
-         rating.value = results[i].rating;
-         photoIcon.value = results[i].icon;
+         dataName.value = element.name;
+         dataDirection.value = element.vicinity;
+         openNow.value = element.opening_hours.open_now;
+         rating.value = element.rating;
+         photoIcon.value = element.icon;
          id.value = "box-rest";
-
          div.setAttributeNode(dataToggle);
          div.setAttributeNode(dataTarget);
          div.setAttributeNode(dataName);
@@ -113,71 +98,64 @@ $(document).ready(splash);
          div.setAttributeNode(rating);
          div.setAttributeNode(id);
          div.setAttributeNode(photoIcon);
-
          div2.classList.add("card-body");
-
         img.setAttributeNode(src);
-         h5.textContent = results[i].name;
-
+        h5.textContent = element.name;
         containerElements.appendChild(div);
         div.appendChild(h5);
         div.appendChild(img);
         div.appendChild(div2);
         div2.appendChild(h5);
        
-       div.addEventListener("click", function() {
-        
-         var restaurante = this.dataset.name;
-         var direccion = this.dataset.direccion;
-         var open = this.dataset.open;
-         var rating = this.dataset.rating;
+        div.addEventListener("click", function() {      
+          let restaurante = this.dataset.name;
+          let direccion = this.dataset.direccion;
+          let open = this.dataset.open;
+          let rating = this.dataset.rating;
+          let etiquetH1 = document.getElementById("nombreRest");
+          let addres = document.getElementById("addres");
+          let especiality = document.getElementById("especiality");
+          let price = document.getElementById("price");
+          let ranking = document.getElementById("ranking");
+          let openNow = document.getElementById("openNow");
+          etiquetH1.textContent = restaurante;
+          addres.textContent = direccion;
+          ranking.textContent = rating;
+          openNow.textContent = open;
 
-         var etiquetH1 = document.getElementById("nombreRest");
-         var addres = document.getElementById("addres");
-         var especiality = document.getElementById("especiality");
-         var price = document.getElementById("price");
-         var ranking = document.getElementById("ranking");
-         var openNow = document.getElementById("openNow");
-
-         etiquetH1.textContent = restaurante;
-         addres.textContent = direccion;
-        //  especiality.textContent = "Tacos Mexicanos";
-        //  price.textContent = " S/. 50";
-         ranking.textContent = rating;
-         openNow.textContent = open;
+          if(open === 'true') {
+            alert('Establecimiento abierto!!');
+          }
+         
        })
 
-       var input = document.getElementById("input");
-        input.addEventListener("keyup", function() {
-          var textoIngresado = this.value;
-          $('.card').hide();
-          $('.card').each(function(){           
-            var search = $(this).text().toLowerCase();
-            if (search.indexOf(textoIngresado) !== -1) {
-              $(this).show();
+       let input = document.getElementById("input");
+       input.addEventListener("keyup", function() {
+        let textoIngresado = this.value;
+        $('.card').hide();
+        $('.card').each(function(){           
+          let search = $(this).text().toLowerCase();
+          if (search.indexOf(textoIngresado) !== -1) {
+            $(this).show();
             }
           });
         })
-
-        createMarker(results[i]);
-           
-       } 
+        createMarker(element);          
+      });
      }    
    }; 
-
  });
 }
 
 
-var iconBase = 'http://bennystaqueria.com/wp-content/uploads/2016/12/map-marker.png';
-
- function createMarker(place) {
-   // Creamos un marcador
-   var marker = new google.maps.Marker({
-     map: map,
-     position: place.geometry.location,
-     icon: iconBase
-   });
+let iconBase = 'http://bennystaqueria.com/wp-content/uploads/2016/12/map-marker.png';
+function createMarker(place) {
+  // Creamos un marcador
+  let marker = new google.maps.Marker({
+    map: map,
+    position: place.geometry.location,
+    icon: iconBase
+  });
 
  // Asignamos el evento click del marcador
    google.maps.event.addListener(marker, 'click', function() {

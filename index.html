@@ -8,67 +8,67 @@
 </head>
 <body>
 <!-- VISTA SPLASH -->
-  <div class="splash">
-    <div class="text-center logo">Foodmap </div>
-  </div>
-
-  <div class="contenBox">
-
-  <div>
-    <h1 class="ret-food">RETO FOODMAP</h1>
-  </div>
+  <section>
+    <div class="splash">
+      <div class="text-center logo">Foodmap </div>
+    </div>
+  </section>
+  <section class="contenBox">
+    <header>
+      <h1 class="ret-food">RETO FOODMAP</h1>
+    </header>
   <!-- MODAL -->
-  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg"> 
-      <div class="modal-content modalB">
-        <div class="container-header">
-          <h1 class="title" id="nombreRest"></h1>
+    <article>
+      <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg"> 
+          <div class="modal-content modalB">
+            <div class="container-header">
+              <h1 class="title" id="nombreRest"></h1>
+            </div>
+            <div class="container-body row">
+              <div class="col-sm-8">
+                <p> <strong> direccion:</strong> <span id="addres"></span></p> 
+                <p><strong>Valoraciones:</strong> <span id="ranking"></span> </p>
+                <p> <strong>Abierto Ahora?</strong> <span id="openNow"></span> </p> 
+              </div>
+              <div class="col-sm-4 containerButton">
+                <button>Añadir a la Lista</button>
+                <button class="pay">PAGAR CON PAYPAL</button>
+              </div>
+            </div>       
+          </div>
         </div>
-        <div class="container-body row">
-          <div class="col-sm-8">
-            <p> <strong> direccion:</strong> <span id="addres"></span></p> 
-            <!-- <p><strong>Especialidad:</strong> <span id="especiality"></span> </p> 
-            <p><strong>Precio:</strong> <span id="price"></span> </p> -->
-            <p><strong>Valoraciones:</strong> <span id="ranking"></span> </p>
-            <p> <strong>Abierto Ahora?</strong> <span id="openNow"></span> </p> 
-          </div>
-          <div class="col-sm-4 containerButton">
-            <button>Añadir a la Lista</button>
-            <button class="pay">PAGAR CON PAYPAL</button>
-          </div>
-        </div>       
+      </div>
+    </article>
+    <!-- CONTENEDOR DEL MAPA -->
+    <aside>
+      <div id="mapa" style="width: 100%; height: 400px;"> </div>
+    </aside>
+    <article>
+      <div class="container-drop">
+        <div class="input-group col-sm-6">
+          <select class="custom-select" id="containerOptions">
+            <option selected>Filtrar por tipo de  establecimientos cerca a ti</option>
+            <option value="restaurant">restaurant</option>
+            <option value="bar">bar</option>
+            <option value="bank">bancos</option>   
+            <option value="pharmacy">farmacia</option>
+            <option value="park">parque</option>
+            <option value="night_club">Club Nocturnos</option>
+          </select>
+        </div>
+      </div>
+    </article>
+    <!-- INPUT DE FILTRADO -->
+    <div class="container-input">
+      <input id="input" type="text" placeholder="filtrar por nombre del establecimiento" class="campText">
+    </div>
+    <!-- CONTENEDOR DE RESTAURANTES -->
+    <div class="container-fluid">
+      <div class="contenedorDeRestaurantes" id="containerElements">
       </div>
     </div>
-  </div>
-<!-- CONTENEDOR DEL MAPA -->
- <div id="mapa" style="width: 100%; height: 400px;"> </div>
-
-<div class="container-drop">
-  <div class="input-group col-sm-6">
-    <select class="custom-select" id="containerOptions">
-      <option selected>Filtrar por establecimientos cerca a ti</option>
-      <option value="restaurant">restaurant</option>
-      <option value="bar">bar</option>
-      <option value="bank">bancos</option>   
-      <option value="pharmacy">farmacia</option>
-      <option value="park">parque</option>
-      <option value="night_club">Club Nocturnos</option>
-    </select>
-  </div>
-</div>
-
-
-<!-- INPUT DE FILTRADO -->
- <div class="container-input">
-    <input id="input" type="text" placeholder="filtro por nombre de restaurant" class="campText">
- </div>
-<!-- CONTENEDOR DE RESTAURANTES -->
- <div class="container-fluid">
-    <div class="contenedorDeRestaurantes" id="containerElements">
-    </div>
- </div>
-
-</div>
+  </section>
 
  <script type="text/javascript" src="https://maps.google.com/maps/api/js?libraries=places&key=AIzaSyAk4wcsFINb8DgrH0fq7CTPBH-6f53HInU"></script>
  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
